@@ -30,7 +30,7 @@ class SongAdapter(private val listener: OnSongClickListener)
         return if (songs.count() == 0) {
             0
         } else {
-            songs.count() + 1
+            songs.count()
         }
     }
 
@@ -56,7 +56,9 @@ class SongItemViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         tvSongPrice.text = "${song.price} ${song.priceCurrency}"
         ivSongArtwork.setImageUrl(song.artworkUrl)
 
-        itemView.setOnClickListener { listener.onSongClick(song) }
+        itemView.setOnClickListener {
+            listener.onSongClick(song)
+        }
     }
 
 }

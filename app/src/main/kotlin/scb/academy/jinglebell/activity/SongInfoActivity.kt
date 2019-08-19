@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import scb.academy.jinglebell.R
 import scb.academy.jinglebell.extension.setImageUrl
+import scb.academy.jinglebell.extension.showToast
 import scb.academy.jinglebell.model.Song
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,8 +21,12 @@ class SongInfoActivity : AppCompatActivity() {
         private const val DATE_FORMAT_ISO_8601 = "YYYY-MM-dd'T'HH:mm:ss'Z'"
         private const val DATE_FORMAT_DATE_ONLY = "YYYY-MM-dd"
 
-        fun startActivity(context: Context, song: Song? = null) =
+        fun startActivity(context: Context, song: Song? = null) {
+            var intent = Intent(context,SongInfoActivity::class.java)
+            intent.putExtra(EXTRA_SONG,song)
+            context?.showToast(song?.name.toString())
             context.startActivity(Intent(context, SongInfoActivity::class.java))
+        }
     }
 
     private lateinit var ivSongArtWork: ImageView
@@ -44,7 +49,8 @@ class SongInfoActivity : AppCompatActivity() {
         tvSongTrackPrice = findViewById(R.id.tv_track_price)
         tvSongCollectionPrice = findViewById(R.id.tv_collection_price)
 
-        val song = intent.getParcelableExtra<Song>(EXTRA_SONG) ?: return
+        //val user:UserEntity = intent.getParcelableExtra(USER_BEAN) as UserEntity
+        val song:Song = intent.getParcelableExtra(EXTRA_SONG) ?: return
         showSongInformation(song)
     }
 

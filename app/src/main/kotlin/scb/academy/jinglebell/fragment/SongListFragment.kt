@@ -1,6 +1,8 @@
 package scb.academy.jinglebell.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import scb.academy.jinglebell.R
+import scb.academy.jinglebell.activity.MainActivity
+import scb.academy.jinglebell.activity.SongInfoActivity
 import scb.academy.jinglebell.adapter.OnSongClickListener
 import scb.academy.jinglebell.adapter.SongAdapter
 import scb.academy.jinglebell.extension.showToast
@@ -31,11 +35,14 @@ class SongListFragment : Fragment(), OnSongClickListener {
 
     private val songListCallback = object : Callback<SongSearchResult> {
         override fun onFailure(call: Call<SongSearchResult>, t: Throwable) {
-            context?.showToast("Can not call country list $t")
+            context?.showToast("Can not call song list $t")
         }
 
         override fun onResponse(call: Call<SongSearchResult>, response: Response<SongSearchResult>) {
             context?.showToast("Success")
+            val songs = response.body()!!.results ?: return
+            songAdapter.submitList(songs)
+
         }
     }
 
@@ -47,7 +54,6 @@ class SongListFragment : Fragment(), OnSongClickListener {
         rvSongs.layoutManager = LinearLayoutManager(context)
         rvSongs.itemAnimator = DefaultItemAnimator()
         rvSongs.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-
         loadSongs()
     }
 
@@ -56,6 +62,6 @@ class SongListFragment : Fragment(), OnSongClickListener {
     }
 
     override fun onSongClick(song: Song) {
-
+        this!!.context?.let { SongInfoActivity.startActivity(it,song) }
     }
 }
