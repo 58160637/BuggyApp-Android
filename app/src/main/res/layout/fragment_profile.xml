@@ -2,11 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="horizontal">
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+              android:orientation="vertical"
+              android:gravity="center">
+
 
         <TextView
                 android:id="@+id/text"
@@ -24,7 +22,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+        <Button
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="greet"
+                android:layout_below="@id/editText"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>
